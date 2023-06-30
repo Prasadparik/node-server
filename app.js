@@ -1,8 +1,17 @@
 // building server ---------------------------------
 
-const http = require("http");
-const routes = require("./routes");
+const express = require("express");
 
-const server = http.createServer(routes);
+const app = express();
 
-server.listen(4000, console.log("running at localhost 4000"));
+app.use((req, res, next) => {
+  console.log("inside middleware");
+  next();
+});
+
+app.use((req, res, next) => {
+  console.log("inside second middleware");
+  res.send({ key1: "value" });
+});
+
+app.listen(3000);
